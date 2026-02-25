@@ -73,6 +73,14 @@ app.get('/api/v1/test', (req, res) => {
   res.json({ message: 'Test endpoint working' });
 });
 
+app.get('/api/v1/user/me', (req, res) => {
+  res.json({
+    username: 'demo_trader',
+    joinDate: '2024-01-15T00:00:00.000Z',
+    accountTier: 'Starter'
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Health check available at: http://localhost:${PORT}/health`);
