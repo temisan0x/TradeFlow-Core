@@ -67,7 +67,7 @@ app.get('/api/v1/prices', async (req, res) => {
       timestamp: new Date(now).toISOString()
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(httpStatusCodes.INTERNAL_SERVER_ERROR).json({
       error: 'Failed to fetch prices',
       message: error.message
     });
