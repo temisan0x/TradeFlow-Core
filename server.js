@@ -5,6 +5,10 @@ const packageJson = require('./package.json');
 
 require('dotenv').config();
 
+function logWithTime(message) {
+  console.log(`[${new Date().toISOString()}] ${message}`);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -79,6 +83,6 @@ app.get('/api/v1/version', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Health check available at: http://localhost:${PORT}/health`);
+  logWithTime(`Server running on port ${PORT}`);
+  logWithTime(`Health check available at: http://localhost:${PORT}/health`);
 });
