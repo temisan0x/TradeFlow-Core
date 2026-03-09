@@ -12,6 +12,10 @@ function logWithTime(message) {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+if (!process.env.PORT) {
+  console.warn(`[WARNING] PORT is not defined in environment variables - defaulting to ${PORT}.`);
+}
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -47,7 +51,7 @@ async function fetchPrices() {
 
 app.get('/api/v1/prices', async (req, res) => {
   const now = Date.now();
-  
+
   if (priceCache.data && (now - priceCache.timestamp) < CACHE_DURATION) {
     return res.json({
       ...priceCache.data,
@@ -60,7 +64,7 @@ app.get('/api/v1/prices', async (req, res) => {
     const prices = await fetchPrices();
     priceCache.data = prices;
     priceCache.timestamp = now;
-    
+
     res.json({
       ...prices,
       cached: false,
